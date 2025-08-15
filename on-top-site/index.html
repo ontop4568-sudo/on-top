@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>On Top</title>
+<link rel="stylesheet" href="style.css">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Special+Elite&family=Pacifico&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<!-- Startscreen -->
+<div id="startscreen">
+  <h1>Klick oder Enter</h1>
+</div>
+
+<!-- Hintergrundvideo stumm -->
+<video autoplay loop muted id="bg-video" style="display:none;">
+  <source src="video.mp4" type="video/mp4">
+</video>
+
+<!-- Musik aus Video separat -->
+<audio autoplay loop id="audio" style="display:none;">
+  <source src="audio.mp3" type="audio/mp3">
+</audio>
+
+<div class="center-wrapper" id="main-content" style="display:none;">
+  <div class="container">
+    <!-- Profilbild -->
+    <div class="pfp">
+      <img src="bmw-m4.jpg" alt="BMW M4 Profilbild">
+    </div>
+
+    <!-- Name als Schreibmaschine -->
+    <h1 class="title" id="typewriter-name"></h1>
+
+    <!-- Schreibmaschinen-Text darunter -->
+    <p class="subtitle" id="typewriter-text"></p>
+
+    <!-- Social Icons -->
+    <div class="social-icons">
+      <a href="https://wa.me/4915755249224" target="_blank" class="icon">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
+      </a>
+      <a href="https://discord.gg/E2HbxgYG" target="_blank" class="icon">
+        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/discord.svg" alt="Discord">
+      </a>
+      <a href="https://www.tiktok.com/@sebi.on.top0" target="_blank" class="icon">
+        <img src="https://upload.wikimedia.org/wikipedia/en/a/a9/TikTok_logo.svg" alt="TikTok">
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- Lautstärke Slider unten rechts -->
+<div class="volume-control" style="display:none;">
+  <label for="volume">🔊</label>
+  <input type="range" id="volume" min="0" max="1" step="0.01" value="0.5">
+</div>
+
+<script>
+// Startscreen
+const startscreen = document.getElementById('startscreen');
+const mainContent = document.getElementById('main-content');
+const video = document.getElementById('bg-video');
+const audio = document.getElementById('audio');
+const volumeSlider = document.getElementById('volume');
+
+function startPage() {
+  startscreen.style.display = "none";
+  mainContent.style.display = "flex";
+  video.style.display = "block";
+  audio.style.display = "block";
+  volumeSlider.parentElement.style.display = "flex";
+}
+
+// Klick oder Enter starten
+startscreen.addEventListener('click', startPage);
+document.addEventListener('keydown', (e) => {
+  if(e.key === "Enter") startPage();
+});
+
+// Musiksteuerung
+volumeSlider.addEventListener('input', () => {
+  audio.volume = volumeSlider.value;
+});
+
+// Schreibmaschinen-Text
+function typewriter(element, text, speed=100) {
+  let index = 0;
+  function type() {
+    if(index < text.length){
+      element.innerHTML += text.charAt(index);
+      index++;
+      setTimeout(type, speed);
+    }
+  }
+  type();
+}
+
+// Name
+const nameElement = document.getElementById('typewriter-name');
+typewriter(nameElement, "On Top", 150);
+
+// Text darunter
+const textElement = document.getElementById('typewriter-text');
+typewriter(textElement, "Die Versuchung lauert in jedem Schatten, und nur wer mutig ist, beherrscht das Feuer.", 80);
+</script>
+
+</body>
+</html>
